@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <title>STUDENT QUIZ PAGE</title>
+</head>
+<body>
+    <div class="sidenav">
+        <br><br>
+        <a href="#">Quiz</a>
+        <br>
+        <a href="#"></a>
+        <br><br><br><br><br><br>
+        <br><br><br><br><br><br><br><br><br><br>
+        <a href="#" >Exit</a>
+    </div>
+    <div class="main">
+      <div class="row" style="padding-top: 20px;padding-left:20px;">
+        <div class="col-md-10">
+              <h1 style="font-family: monospace;font-size: 30px;font-weight: bold;">QUIZ NAME : </h1>
+            </div>
+            <div class="col-md-2">
+              <button id="delete" class="btn btn-outline-dark my-2 my-sm-0" >End Quiz</button>
+            </div>
+            </div>
+
+        <hr style="color: black;background-color: black;border-color: black;">
+        <div class="container">
+          <h1 id="quiz" style="font-family: monospace;font-size: 25px;font-weight: bold;">Questions</h1>
+          <form action="submit/" method="post">
+            {% csrf_token %}
+          <div class="container" style="padding-top: 20px;">
+          <div class="row">
+            {% for que in questions %}
+            <div class="col-md-2"></div>
+            <div class="col-md-8">
+                <div class="card-sl">
+                      <div class="card-text">
+                          <b>Question {{ forloop.counter }} </b>: ({{que.points}} points)
+                        </div>
+                        <div class="card-text">
+                        <label for="question{{que.pk}}">{{ que.question }}</label>
+                        <div class="radio">
+                        <input type="radio" name="question{{que.pk}}" id="question{{que.pk}}" value=0 hidden checked>
+                        <label><input type="radio" name="question{{que.pk}}" id="question{{que.pk}}" value=1>  1) {{que.op1}}</label>
+                        </div>
+                        <div class="radio">
+                        <label><input type="radio" name="question{{que.pk}}" id="question{{que.pk}}" value=2>  2) {{que.op2}} </label>
+                        </div>
+                        <div class="radio">
+                        <label><input type="radio" name="question{{que.pk}}" id="question{{que.pk}}" value=3>  3) {{que.op3}} </label>
+                        </div>
+                        <div class="radio">
+                        <label><input type="radio" name="question{{que.pk}}" id="question{{que.pk}}" value=4>  4) {{que.op4}} </label>
+                        </div>
+                        </div>
+                      <div style="background-color: white;border-radius:0 0 8px 8px;">
+                      <br>
+                      </div>
+                </div>
+                <br>
+            </div>
+            <div class="col-md-2"></div>
+            {% endfor %}
+            </div>
+          </div>
+          <br>
+          <div class="text-center">
+            <button class="btn btn-dark" type="submit">SUBMIT</button>
+          </div>
+          </form>
+          <br>
+
+
+
+
+        </div>
+        <div id="myModal" class="modal">
+          <div class="modal-content">
+            <div class="modal-body">
+              <div class="text-center">
+              <h4>ADD NEW QUIZ <span class="close">&times;</span></h4>
+            </div>
+            <br>
+              <form>
+              <div class="form-row">
+                <div class="col mb-3">
+                <label for="subjectname">Subject name</label>
+                <input type="text" class="form-control" id="subjectname" placeholder="Enter subject name" value="" required>
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col mb-3">
+                  <label for="topicname">Topic Name</label>
+                  <input type="text" class="form-control" id="topicname" placeholder="Enter topic name" value="" required>
+                </div>
+              </div>
+
+              <br>
+              <div class="text-center">
+              <button class="btn btn-dark" type="submit">ADD</button>
+            </div>
+            </form>
+            </div>
+          </div>
+
+        </div>
+
+
+  </div>
+
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <script>
+    var modal = document.getElementById("myModal");
+    var modal1 = document.getElementById("myModal1");
+    var btn = document.getElementById("myBtn");
+    var btn1 = document.getElementById("myBtn1");
+    var span = document.getElementsByClassName("close")[0];
+    btn.onclick = function() {
+      modal.style.display = "block";
+    }
+    btn1.onclick = function() {
+      modal1.style.display = "block";
+    }
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+      if (event.target == modal1) {
+        modal1.style.display = "none";
+      }
+    }
+    </script>
+</body>
+</html>

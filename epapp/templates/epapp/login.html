@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <title>login</title>
+  </head>
+  <body>
+    <div class="container">
+    <div class="frame">
+        <div class="nav">
+            <ul class="links">
+                <li class="signin-active"><a class="btn">Existing User</a></li>
+                <li class="signup-inactive"><a class="btn">New User</a></li>
+            </ul>
+        </div>
+        <div ng-app ng-init="checked = false">
+            <form class="form-signin" action="/login/" method="post" name="form">
+              {% csrf_token %}
+              {% if messages %}
+                  {% for message in messages %}
+                  <div style="color: aliceblue;" class="alert alert-{{ message.tags }}" role="alert">
+                    {{ message }}
+                  </div>
+                  {% endfor %}
+              {% endif %}
+              <br>
+              <br>
+              <br>
+              <label for="username">User name</label><input class="form-styling" type="text" name="username" id="username" placeholder="" />
+              <!-- <label for="isteacher">Type of User</label>
+              <div class="radio">
+              <label><input type="radio" name="isteacher" >Teacher</label>
+              </div>
+              <div class="radio">
+              <label><input type="radio" name="isteacher">Student</label>
+              </div> -->
+              <br>
+              <label for="password">Password</label> <input class="form-styling" type="password" name="password" id="password" placeholder="" />
+              <button class="btn-animate" type="submit">Login to your account</a> </button>
+              <!-- <div class="btn-animate" > <a class="btn-signin" type="submit">Login to your account</a> </div> -->
+            </form>
+            <form class="form-signup" action="/signup/" method="post" name="form">
+              {% csrf_token %}
+              <label for="fullname">Full name</label> <input class="form-styling" type="text" name="fullname" id="fullname" placeholder="" />
+              <label for="username">User name</label> <input class="form-styling" type="text" name="username" id="username" placeholder="" />
+              <label for="phnumber">Phone Number</label> <input class="form-styling" type="text" name="phnumber" id="phnumber" placeholder="" />
+              <label for="password">Create password</label> <input class="form-styling" type="text" name="password" id="password" placeholder="" />
+              <div class="radio">
+              <label for="isteacher">Type of User</label>
+              <label><input type="radio" name="isteacher" id="isteacher" value="teacher"
+                checked>Teacher</label>
+                </div>
+                <div class="radio">
+                <label><input type="radio" name="isteacher" value="student">Student</label>
+                </div>
+              <button ng-click="checked = !checked" class="btn-signup" type='submit'>REGISTER</button>
+            </form>
+        </div>
+
+    </div>
+  </div>
+  <script src='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js'></script>
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+  <script src="{% static 'js/login.js' %}"></script>
+  </body>
+</html>
